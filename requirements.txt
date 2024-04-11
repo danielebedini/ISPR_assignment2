@@ -1,3 +1,4 @@
 python==3.11.8
 numpy==1.26.4
 scikit-learn == 1.4.1.post1
+pandas==1.4.1
