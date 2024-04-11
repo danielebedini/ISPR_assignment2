@@ -70,7 +70,6 @@ def compute_structure_score(model, data):
 # Correlation Score: Compute the score of the model following different scoring methods
 def compute_correlation_score(model, data):
     tests = ['chi_square', 'g_sq', 'log_likelihood', 'freeman_tuckey', 'modified_log_likelihood', 'neyman', 'cressie_read']
-    #scores = ['accuracy', 'f1', 'precision', 'recall', 'roc_auc']
     pd_data = pd.DataFrame(data)
     for test in tests:
         score = correlation_score(model, pd_data, test=test, significance_level=0.05, return_summary=False)
