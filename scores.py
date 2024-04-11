@@ -56,6 +56,7 @@ def compute_log_likelihood(model, data): # TODO: check this function
     score = log_likelihood_score(model, data)
     return score
 
+
 # Structure Score: Compute the score of the model following different scoring methods
 def compute_structure_score(model, data):
     score_types = ['k2', 'bdeu', 'bic' , 'bds']
@@ -65,6 +66,8 @@ def compute_structure_score(model, data):
         score = structure_score(model, pd_data, scoring_method=score_type)
         print(f"{score_type} score: {score}")
 
+
+# Correlation Score: Compute the score of the model following different scoring methods
 def compute_correlation_score(model, data):
     tests = ['chi_square', 'g_sq', 'log_likelihood', 'freeman_tuckey', 'modified_log_likelihood', 'neyman', 'cressie_read']
     #scores = ['accuracy', 'f1', 'precision', 'recall', 'roc_auc']
