@@ -2,14 +2,12 @@ import pandas as pd
 
 from pgmpy.models import BayesianNetwork
 from pgmpy.estimators.PC import PC
-from pgmpy.estimators import BayesianEstimator
-from pgmpy.estimators.CITests import chi_square
-
-from sklearn.metrics import accuracy_score
 
 # import from dataset
-from data import X_train, X_test, y_train, y_test, whole_TR, whole_TS
-from scores import compute_structure_score
+from try_plot import X, y, X_train, X_test, y_train, y_test
+from scores import compute_structure_score, compute_correlation_score
+
+SIG_LVL = 0.05
 
 # create model
 model = BayesianNetwork()
@@ -23,14 +21,18 @@ model = BayesianNetwork()
 # training data is X_train + y_train
 # convert training data to pandas dataframe
 
-pd_data = pd.DataFrame(whole_TR)
+tr_data = pd.concat([X_train, y_train], axis=1)
+tr_unencoded = pd.concat([X, y], axis=1)
+#pd_data = pd.DataFrame(tr_data)
 
-pc = PC(pd_data)
-dag = pc.estimate(return_type='dag')
+pc = PC(tr_unencoded)
+dag = pc.estimate(return_type='dag', significance_level=SIG_LVL)
 model.add_edges_from(dag.edges())
 
 # fit model
-model.fit(pd.DataFrame(X_train), estimator=BayesianEstimator)
+model.fit(tr_unencoded)
+
+#model.predict(X_test)
 
 # print model
 #print("****************************************************************************************")
@@ -62,18 +64,8 @@ print(dag.edges())
 
 '''
 print("Structure Scores: ")
-score = compute_structure_score(model, X_test)
+score = compute_structure_score(model, test_set)
 
-# data without last column
-# predict_data = predict_data.copy()
-# predict_data.drop('E', axis=1, inplace=True)
-# y_pred = model.predict(predict_data)
-# y_pred
-
-test_copy = pd.DataFrame(X_test.copy())
-#test_copy.drop('class', axis=1, inplace=True)
-y_pred = model.predict(test_copy)
-
-# accuracy
-accuracy = accuracy_score(y_test, y_pred) 
+print("Correlation Scores: ")
+score = compute_correlation_score(model, test_set)
 '''
