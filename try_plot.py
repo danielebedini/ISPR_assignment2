@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.model_selection import train_test_split
 
 # Load the dataset
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data"
@@ -25,24 +26,28 @@ y = data['class']  # Target
 
 tr_data_unencoded = pd.concat([X, y], axis=1)
 
+print(X.head())
+print(y.head())
+
+
 # Perform one-hot encoding on features
-X_encoded = pd.get_dummies(X)
+#X_encoded = pd.get_dummies(X)
 
 # Display the first few rows of the encoded dataset
-print(X_encoded.head())
+#print(X_encoded.head())
 
-from pgmpy.estimators import PC
-from pgmpy.models import BayesianModel
+#from pgmpy.estimators import PC
+#from pgmpy.models import BayesianModel
 
 # Concatenate encoded features with target variable
-data_encoded = pd.concat([X_encoded, y], axis=1)
+#data_encoded = pd.concat([X_encoded, y], axis=1)
 
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
 
 # split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-tr_set_encoded = pd.concat([X_train, y_train], axis=1)
+#tr_set_encoded = pd.concat([X_train, y_train], axis=1)
 
 #test_set_encoded = pd.concat([X_test, y_test], axis=1)
 
