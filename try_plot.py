@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
+import networkx as nx
+import matplotlib.pyplot as plt
 
 # Load the dataset
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data"
@@ -63,20 +65,7 @@ print(estimated_model.edges())
 
 
 
-import networkx as nx
-import matplotlib.pyplot as plt
 
-# Create a directed graph from the learned model
-edges = estimated_model.edges()
-G = nx.DiGraph()
-G.add_edges_from(edges)
-
-# Plot the directed graph
-plt.figure(figsize=(8, 6))
-pos = nx.spring_layout(G)  # Set layout for better visualization
-nx.draw(G, pos, with_labels=True, node_size=1200, node_color="skyblue", font_size=12, font_weight="bold", arrows=True)
-plt.title("Learned Bayesian Network Structure (PC Algorithm)")
-plt.show()
 
 from scores import compute_correlation_score, compute_structure_score
 
@@ -90,3 +79,17 @@ print(f"Correlation Score: {correlation_score}")
 structure_score = compute_structure_score(estimated_model, test_set)
 print(f"Structure Score: {structure_score}")
 '''
+
+def plot_graph(estimated_model):
+
+    # Create a directed graph from the learned model
+    edges = estimated_model.edges()
+    G = nx.DiGraph()
+    G.add_edges_from(edges)
+
+    # Plot the directed graph
+    plt.figure(figsize=(8, 6))
+    pos = nx.spring_layout(G)  # Set layout for better visualization
+    nx.draw(G, pos, with_labels=True, node_size=1200, node_color="skyblue", font_size=12, font_weight="bold", arrows=True)
+    plt.title("Learned Bayesian Network Structure (PC Algorithm)")
+    plt.show()
