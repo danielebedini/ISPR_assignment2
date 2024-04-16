@@ -4,7 +4,7 @@ from pgmpy.models import BayesianNetwork
 from pgmpy.estimators.PC import PC
 
 # import from dataset
-from try_plot import X, y, X_train, X_test, y_train, y_test
+from try_plot import X, y, X_train, X_test, y_train, y_test, plot_graph
 from scores import compute_structure_score, compute_correlation_score
 
 SIG_LVL = 0.05
@@ -69,3 +69,5 @@ score = compute_structure_score(model, test_set)
 print("Correlation Scores: ")
 score = compute_correlation_score(model, test_set)
 '''
+
+plot_graph(model)
